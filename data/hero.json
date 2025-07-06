@@ -1,0 +1,19 @@
+{
+  "slides": [
+    {
+      "image": "assets/hero/hero-1.webp",
+      "title": "米達斯酒品",
+      "subtitle": "品味世界，傳承經典"
+    },
+    {
+      "image": "assets/hero/hero-2.webp",
+      "title": "精選進口酒品",
+      "subtitle": "來自世界各地的頂級佳釀"
+    },
+    {
+      "image": "assets/hero/hero-3.webp",
+      "title": "專業服務",
+      "subtitle": "為您提供最優質的酒品體驗"
+    }
+  ]
+}
