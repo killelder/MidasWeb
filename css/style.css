@@ -33,9 +33,12 @@ body {
 }
 
 .nav-logo h2 {
-    color: #c6a777;
+    display: inline-block;
+    vertical-align: middle;
     font-size: 24px;
     font-weight: bold;
+    color: #c6a777;
+    margin: 0;
 }
 
 .logo-link {
@@ -470,6 +473,32 @@ body {
     padding-top: 20px;
     border-top: 1px solid #333;
     color: #888;
+}
+
+.logo-img {
+    height: 3.6em;
+    vertical-align: middle;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.footer-bottom-img {
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 9999;
+    background: #070322;
+}
+
+.footer-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 /* Responsive Design */
