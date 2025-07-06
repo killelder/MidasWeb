@@ -2,10 +2,17 @@
   "wines": [
     {
       "id": 1,
-      "name": "法國波爾多紅酒 2018",
-      "image": "assets/wines/wine-1.webp",
-      "price": "NT$ 2,800",
+      "name": "OLD HANDS 2021 CABERNET SAUVIGNON",
+      "image": "assets/wines/id1.webp",
+      "price": "NT$ 2,200",
       "description": "來自法國波爾多產區的精選紅酒，具有濃郁的果香和優雅的單寧結構，適合搭配紅肉料理。"
-    }    
+    },
+    {
+      "id": 1,
+      "name": "VALLEY & VALLEY 2023 CABERNET SAUVIGNON",
+      "image": "assets/wines/id2.webp",
+      "price": "NT$ 1,200",
+      "description": "來自法國波爾多產區的精選紅酒，具有濃郁的果香和優雅的單寧結構，適合搭配紅肉料理。"
+    }   
   ]
 }

@@ -372,8 +372,8 @@ body {
 
 /* Contact Section */
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
     gap: 50px;
     margin-top: 50px;
 }
@@ -428,6 +428,47 @@ body {
 
 .submit-btn:hover {
     background-color: #a8956a;
+}
+
+.contact-extra {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    padding: 30px 20px;
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.contact-extra h3 {
+    color: #070322;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.contact-extra ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-extra li {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.contact-extra li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #c6a777;
+    font-size: 1.2em;
+    line-height: 1;
 }
 
 /* Footer */
@@ -558,8 +599,14 @@ body {
     }
 
     .contact-content {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 30px;
+    }
+
+    .contact-extra {
+        margin-left: 0;
+        margin-top: 20px;
+        width: 100%;
     }
 
     .wineries-grid,
