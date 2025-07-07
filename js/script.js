@@ -366,13 +366,36 @@ class DataLoader {
             return;
         }
 
-        const html = wines.map(wine => `
+        const html = wines.map((wine, index) => `
             <div class="wine-card">
                 <img src="${wine.image}" alt="${wine.name}">
                 <div class="wine-info">
                     <h3>${wine.name}</h3>
                     <div class="price">${wine.price}</div>
                     <p>${wine.description}</p>
+                    ${wine.award ? `<div class="award" onclick="showAwardDetails('${wine.name}', '${wine.award}')">🏆 ${wine.award}</div>` : ''}
+                    ${(wine.aroma || wine.flavor) ? `
+                        <div class="wine-details-toggle" onclick="toggleWineDetails(${index})">
+                            <span class="toggle-text">查看風味詳情</span>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="wine-details" id="wine-details-${index}" style="display: none;">
+                            ${wine.aroma ? `<div class="detail-item">
+                                <div class="detail-icon"></div>
+                                <div class="detail-content">
+                                    <span class="detail-label">香氣特徵</span>
+                                    <span class="detail-value">${wine.aroma}</span>
+                                </div>
+                            </div>` : ''}
+                            ${wine.flavor ? `<div class="detail-item">
+                                <div class="detail-icon"></div>
+                                <div class="detail-content">
+                                    <span class="detail-label">風味特色</span>
+                                    <span class="detail-value">${wine.flavor}</span>
+                                </div>
+                            </div>` : ''}
+                        </div>
+                    ` : ''}
                 </div>
             </div>
         `).join('');
@@ -442,6 +465,89 @@ class AnimationObserver {
             this.observer.observe(el);
         });
     }
+}
+
+// 切換風味詳情的全局函數
+function toggleWineDetails(index) {
+    const detailsElement = document.getElementById(`wine-details-${index}`);
+    const toggleElement = detailsElement.previousElementSibling;
+    const toggleText = toggleElement.querySelector('.toggle-text');
+    const toggleIcon = toggleElement.querySelector('.toggle-icon');
+    
+    if (detailsElement.style.display === 'none') {
+        detailsElement.style.display = 'block';
+        toggleText.textContent = '收起風味詳情';
+        toggleIcon.textContent = '▲';
+        toggleElement.classList.add('active');
+    } else {
+        detailsElement.style.display = 'none';
+        toggleText.textContent = '查看風味詳情';
+        toggleIcon.textContent = '▼';
+        toggleElement.classList.remove('active');
+    }
+}
+
+// 顯示獲獎詳情的全局函數
+function showAwardDetails(wineName, award) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10001;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    
+    const content = document.createElement('div');
+    content.style.cssText = `
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 400px;
+        text-align: center;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+    `;
+    
+    content.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 20px;">🏆</div>
+        <h3 style="color: #070322; margin-bottom: 15px;">${wineName}</h3>
+        <p style="color: #c6a777; font-weight: bold; font-size: 1.1rem; margin-bottom: 20px;">${award}</p>
+        <p style="color: #666; margin-bottom: 25px;">恭喜獲得此殊榮！這代表了我們對品質的堅持與認可。</p>
+        <button onclick="this.closest('.award-modal').remove()" style="
+            background: #c6a777;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        ">關閉</button>
+    `;
+    
+    modal.appendChild(content);
+    modal.classList.add('award-modal');
+    document.body.appendChild(modal);
+    
+    // 動畫效果
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        content.style.transform = 'scale(1)';
+    }, 10);
+    
+    // 點擊背景關閉
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
 }
 
 // Initialize everything when DOM is loaded

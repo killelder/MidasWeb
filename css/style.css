@@ -317,6 +317,121 @@ body {
     line-height: 1.5;
 }
 
+.wine-info .award {
+    background: linear-gradient(135deg, #c6a777, #d4b88a);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(198, 167, 119, 0.3);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.wine-info .award:hover {
+    background: linear-gradient(135deg, #d4b88a, #c6a777);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(198, 167, 119, 0.4);
+}
+
+.wine-details-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #f8f8f8, #f0f0f0);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.wine-details-toggle:hover {
+    background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+    border-color: #c6a777;
+}
+
+.wine-details-toggle.active {
+    background: linear-gradient(135deg, #c6a777, #d4b88a);
+    color: white;
+    border-color: #c6a777;
+}
+
+.toggle-text {
+    font-weight: 500;
+}
+
+.toggle-icon {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.wine-details {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.detail-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    flex-shrink: 0;
+    line-height: 1.2;
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item:hover {
+    background: #f0f0f0;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #c6a777;
+    min-width: 60px;
+    margin-right: 10px;
+    font-size: 0.85rem;
+}
+
+.detail-value {
+    color: #555;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    flex: 1;
+}
+
 /* Custom Section */
 .custom-content {
     display: grid;
@@ -640,6 +755,35 @@ body {
 
     .hero-nav {
         padding: 0 10px;
+    }
+    
+    .wine-info .award {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .detail-label {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    
+    .detail-value {
+        font-size: 0.8rem;
+    }
+    
+    .wine-details-toggle {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .toggle-text {
+        font-size: 0.8rem;
     }
 }
 
