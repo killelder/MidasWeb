@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# 允许抓取所有页面
+Allow: /index.html
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+Allow: /data/
+
+# 禁止抓取特定文件类型（如果有的话）
+Disallow: /*.json$
+Disallow: /*.txt$
+
+# 网站地图位置
+Sitemap: https://your-domain.com/sitemap.xml
+
+# 爬取延迟（可选）
+Crawl-delay: 1 
