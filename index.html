@@ -3,52 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>米達斯酒品 | 精品進口酒商</title>
-    <meta name="description" content="米達斯酒品 - 專業進口酒商，提供優質莊園酒品、企業訂製服務">
-    <meta name="keywords" content="進口酒, 酒商, 莊園酒, 企業訂製, 米達斯酒品">
+    
+    <!-- 效能優化 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#070322">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo/logo.png">
+    
+    <!-- 預加載關鍵資源 -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    
+    <!-- 基本 SEO 元素 -->
+    <title>米達斯酒品 | 精品進口酒商 - 專業莊園酒品、企業訂製服務</title>
+    <meta name="description" content="米達斯酒品 - 專業進口酒商，提供優質莊園酒品、企業訂製服務。精選澳洲巴羅薩谷、義大利阿布魯佐等知名產區酒品，為企業提供品酒會、尾牙用酒、商務送禮等客製化服務。台北中正區專業酒商。">
+    <meta name="keywords" content="進口酒商, 莊園酒, 企業訂製, 米達斯酒品, 台北酒商, 企業品酒會, 澳洲巴羅薩谷, 義大利阿布魯佐, 企業禮品酒品, 中正區進口酒, 台北進口酒商, 企業品酒會, 澳洲巴羅薩谷酒莊, 義大利阿布魯佐酒莊, 企業禮品酒品, 台北企業訂製酒品">
     <meta name="author" content="米達斯酒品">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="米達斯酒品 | 精品進口酒商">
-    <meta property="og:description" content="米達斯酒品 - 專業進口酒商，提供優質莊園酒品、企業訂製服務">
+    <link rel="canonical" href="https://midaswines.com/">
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://midaswines.com/">
+    <meta property="og:title" content="米達斯酒品 | 精品進口酒商 - 專業莊園酒品、企業訂製服務">
+    <meta property="og:description" content="米達斯酒品 - 專業進口酒商，提供優質莊園酒品、企業訂製服務。精選澳洲巴羅薩谷、義大利阿布魯佐等知名產區酒品。">
+    <meta property="og:image" content="https://midaswines.com/assets/logo/logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="米達斯酒品">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://midaswines.com/">
+    <meta property="twitter:title" content="米達斯酒品 | 精品進口酒商 - 專業莊園酒品、企業訂製服務">
+    <meta property="twitter:description" content="米達斯酒品 - 專業進口酒商，提供優質莊園酒品、企業訂製服務。精選澳洲巴羅薩谷、義大利阿布魯佐等知名產區酒品。">
+    <meta property="twitter:image" content="https://midaswines.com/assets/logo/logo.png">
+    
+    <!-- 結構化數據 (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "米達斯酒品",
+        "url": "https://midaswines.com",
+        "logo": "https://midaswines.com/assets/logo/logo.png",
+        "description": "專業進口酒商，提供優質莊園酒品、企業訂製服務",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "忠孝東路一段152號11樓之6",
+            "addressLocality": "台北市",
+            "addressRegion": "中正區",
+            "addressCountry": "TW"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+886-915-150-140",
+            "contactType": "customer service",
+            "email": "midastasty@gmail.com"
+        },
+        "sameAs": [
+            "https://midaswines.com"
+        ]
+    }
+    </script>
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home" class="logo-link">
-                    <img src="assets/logo/logo.png" alt="Midas Logo" class="logo-img">
-                    <h2>米達斯酒品</h2>
-                </a>
+    <!-- 無障礙設計：跳過導航連結 -->
+    <a href="#main-content" class="skip-link">跳過導航</a>
+    <header>
+        <nav class="navbar" role="navigation" aria-label="主要導航">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="#home" class="logo-link" aria-label="回到首頁">
+                        <img src="assets/logo/logo.png" alt="米達斯酒品 Logo" class="logo-img" width="50" height="50" loading="eager">
+                        <h2>米達斯酒品</h2>
+                    </a>
+                </div>
+                <ul class="nav-menu" role="menubar">
+                    <li class="nav-item" role="none">
+                        <a href="#home" class="nav-link" role="menuitem" aria-label="前往首頁">首頁</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#wineries" class="nav-link" role="menuitem" aria-label="前往莊園介紹">莊園介紹</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#wines" class="nav-link" role="menuitem" aria-label="前往酒品介紹">酒品介紹</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#custom" class="nav-link" role="menuitem" aria-label="前往企業訂製">企業訂製</a>
+                    </li>
+                    <li class="nav-item" role="none">
+                        <a href="#contact" class="nav-link" role="menuitem" aria-label="前往聯絡我們">聯絡我們</a>
+                    </li>
+                </ul>
+                <button class="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="nav-menu">
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                    <span class="bar" aria-hidden="true"></span>
+                </button>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">首頁</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#wineries" class="nav-link">莊園介紹</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#wines" class="nav-link">酒品介紹</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#custom" class="nav-link">企業訂製</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">聯絡我們</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main>
+    <main id="main-content">
         <section id="home" class="hero">
             <div class="hero-slideshow">
                 <!-- Slides will be dynamically loaded here -->
@@ -60,32 +123,32 @@
             <div class="hero-dots"></div>
         </section>
 
-        <section id="wineries" class="section">
+        <section id="wineries" class="section" aria-labelledby="wineries-title">
             <div class="container">
-                <h2 class="section-title">莊園介紹</h2>
-                <div class="wineries-grid" id="wineries-container">
+                <h2 id="wineries-title" class="section-title">莊園介紹</h2>
+                <div class="wineries-grid" id="wineries-container" role="list" aria-label="合作酒莊列表">
                     <!-- Dynamic content will be loaded here -->
                 </div>
             </div>
         </section>
 
-        <section id="wines" class="section">
+        <section id="wines" class="section" aria-labelledby="wines-title">
             <div class="container">
-                <h2 class="section-title">酒品介紹</h2>
-                <div class="wines-grid" id="wines-container">
+                <h2 id="wines-title" class="section-title">酒品介紹</h2>
+                <div class="wines-grid" id="wines-container" role="list" aria-label="精選酒品列表">
                     <!-- Dynamic content will be loaded here -->
                 </div>
             </div>
         </section>
 
-        <section id="custom" class="section">
+        <section id="custom" class="section" aria-labelledby="custom-title">
             <div class="container">
-                <h2 class="section-title">企業訂製</h2>
-                <div class="custom-content">
+                <h2 id="custom-title" class="section-title">企業訂製</h2>
+                <article class="custom-content">
                     <div class="custom-text">
                         <h3>為您的企業量身訂製</h3>
                         <p>我們提供專業的企業訂製服務，包括：</p>
-                        <ul>
+                        <ul role="list">
                             <li>企業品酒會/福委會活動</li>
                             <li>尾牙/節慶用酒</li>
                             <li>商務送禮/客戶禮品</li>
@@ -93,34 +156,34 @@
                             <li>企業大量訂製</li>
                             <li>VIP客戶專屬酒品</li>
                         </ul>
-                        <a href="#contact" class="cta-button">立即洽詢</a>
+                        <a href="#contact" class="cta-button" aria-label="立即洽詢企業訂製服務">立即洽詢</a>
                     </div>
                     <div class="custom-image">
-                        <img src="assets/wineries/welland1.webp" alt="企業訂製服務">
+                        <img src="assets/wineries/welland1.webp" alt="企業訂製服務展示圖" loading="lazy" width="400" height="300">
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section id="contact" class="section">
+        <section id="contact" class="section" aria-labelledby="contact-title">
             <div class="container">
-                <h2 class="section-title">聯絡我們</h2>
+                <h2 id="contact-title" class="section-title">聯絡我們</h2>
                 <div class="contact-content">
-                    <div class="contact-info">
+                    <address class="contact-info">
                         <h3>聯絡資訊</h3>
                         <div class="contact-item">
                             <strong>電話：</strong>
-                            <span>+886-915-150-140</span>
+                            <a href="tel:+886915150140" aria-label="撥打電話 +886-915-150-140">+886-915-150-140</a>
                         </div>
                         <div class="contact-item">
                             <strong>Email：</strong>
-                            <span>midastasty@gmail.com</span>
+                            <a href="mailto:midastasty@gmail.com" aria-label="寄送郵件至 midastasty@gmail.com">midastasty@gmail.com</a>
                         </div>
                         <div class="contact-item">
                             <strong>地址：</strong>
                             <span>台北市中正區忠孝東路一段152號11樓之6</span>
                         </div>
-                    </div>
+                    </address>
                     
                 </div>
             </div>
@@ -155,7 +218,7 @@
                 <p>&copy; 2025 米達斯酒品. All rights reserved.</p>
             </div>
             <div class="footer-bottom-img">
-                <img src="assets/foo/foo.png" alt="禁止標誌" class="footer-img">
+                <img src="assets/foo/foo.png" alt="禁止標誌" class="footer-img" loading="lazy">
             </div>
         </div>
     </footer>

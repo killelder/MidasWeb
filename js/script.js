@@ -71,7 +71,7 @@ class HeroSlideshow {
             const slideElement = document.createElement('div');
             slideElement.className = `slide ${index === 0 ? 'active' : ''}`;
             slideElement.innerHTML = `
-                <img src="${slide.image}" alt="${slide.title}">
+                <img src="${slide.image}" alt="${slide.title}" loading="${index === 0 ? 'eager' : 'lazy'}">
                 <div class="slide-content">
                     <h1>${slide.title}</h1>
                     <p>${slide.subtitle}</p>
@@ -329,7 +329,7 @@ class DataLoader {
             console.log(`生成酒莊 ${index + 1} HTML:`, winery.name);
             return `
                 <div class="winery-card">
-                    <img src="${winery.image}" alt="${winery.name}">
+                    <img src="${winery.image}" alt="${winery.name}" loading="lazy">
                     <div class="winery-info">
                         <h3>${winery.name}</h3>
                         <p>${winery.description}</p>
@@ -366,9 +366,12 @@ class DataLoader {
             return;
         }
 
+        // 生成酒品結構化數據
+        this.generateWineStructuredData(wines);
+
         const html = wines.map((wine, index) => `
             <div class="wine-card">
-                <img src="${wine.image}" alt="${wine.name}">
+                <img src="${wine.image}" alt="${wine.name}" loading="lazy">
                 <div class="wine-info">
                     <h3>${wine.name}</h3>
                     <div class="price">${wine.price}</div>
@@ -378,11 +381,14 @@ class DataLoader {
                             <div class="awards-header">
                                 <span class="awards-count">🏆 ${wine.awards.length} 個獎項</span>
                             </div>
-                            ${wine.awards.map((award, awardIndex) => `
-                                <div class="award" onclick="showAwardDetails('${wine.name}', '${award}')">
-                                    🏆 ${award}
-                                </div>
-                            `).join('')}
+                            ${wine.awards.map((award, awardIndex) => {
+                                const hasDetail = award.detail && award.detail.trim() !== '';
+                                return `
+                                    <div class="award ${hasDetail ? 'clickable' : 'no-detail'}" ${hasDetail ? `onclick="showAwardDetails('${wine.name}', '${award.name}', '${award.detail}')"` : ''}>
+                                        🏆 ${award.name}
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
                     ` : ''}
                     ${(wine.aroma || wine.flavor) ? `
@@ -422,6 +428,52 @@ class DataLoader {
                 }
             });
         }, 100);
+    }
+
+    generateWineStructuredData(wines) {
+        // 移除現有的酒品結構化數據
+        const existingScript = document.querySelector('script[data-wine-structured-data]');
+        if (existingScript) {
+            existingScript.remove();
+        }
+
+        // 創建新的結構化數據
+        const wineProducts = wines.map(wine => ({
+            "@type": "Product",
+            "name": wine.name,
+            "description": wine.description,
+            "image": wine.image,
+            "offers": {
+                "@type": "Offer",
+                "price": wine.price.replace(/[^\d]/g, ''), // 提取數字
+                "priceCurrency": "TWD",
+                "availability": "https://schema.org/InStock"
+            },
+            "brand": {
+                "@type": "Brand",
+                "name": "米達斯酒品"
+            },
+            "category": "葡萄酒"
+        }));
+
+        const structuredData = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "米達斯酒品精選酒品",
+            "description": "專業進口酒商精選的優質酒品",
+            "itemListElement": wineProducts.map((wine, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": wine
+            }))
+        };
+
+        // 添加到頁面
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(structuredData);
+        script.setAttribute('data-wine-structured-data', 'true');
+        document.head.appendChild(script);
     }
 }
 
@@ -499,7 +551,7 @@ function toggleWineDetails(index) {
 }
 
 // 顯示獲獎詳情的全局函數
-function showAwardDetails(wineName, award) {
+function showAwardDetails(wineName, awardName, awardDetail) {
     const modal = document.createElement('div');
     modal.style.cssText = `
         position: fixed;
@@ -531,9 +583,9 @@ function showAwardDetails(wineName, award) {
         <div style="font-size: 3rem; margin-bottom: 20px;">🏆</div>
         <h3 style="color: #070322; margin-bottom: 15px;">${wineName}</h3>
         <div style="background: linear-gradient(135deg, #c6a777, #d4b88a); color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-            <p style="font-weight: bold; font-size: 1.1rem; margin: 0;">${award}</p>
+            <p style="font-weight: bold; font-size: 1.1rem; margin: 0;">${awardName}</p>
         </div>
-        <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">恭喜獲得此殊榮！這代表了我們對品質的堅持與認可，每一座獎盃都是對我們專業與熱情的肯定。</p>
+        <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">${awardDetail}</p>
         <button onclick="this.closest('.award-modal').remove()" style="
             background: #c6a777;
             color: white;
@@ -593,6 +645,22 @@ style.textContent = `
     .contact-content.animate {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    .award.clickable {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .award.clickable:hover {
+        background-color: rgba(198, 167, 119, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .award.no-detail {
+        cursor: default;
+        opacity: 0.7;
     }
 `;
 document.head.appendChild(style);

@@ -10,6 +10,31 @@ body {
     line-height: 1.6;
     color: #000;
     background-color: #fff;
+    /* 無障礙設計：確保足夠的對比度 */
+    scroll-behavior: smooth;
+}
+
+/* 無障礙設計：焦點樣式 */
+*:focus {
+    outline: 2px solid #c6a777;
+    outline-offset: 2px;
+}
+
+/* 無障礙設計：跳過導航連結 */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #c6a777;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1001;
+}
+
+.skip-link:focus {
+    top: 6px;
 }
 
 /* Navigation */
