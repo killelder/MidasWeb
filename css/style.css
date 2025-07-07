@@ -317,6 +317,20 @@ body {
     gap: 8px;
 }
 
+.awards-header {
+    margin-bottom: 5px;
+}
+
+.awards-count {
+    font-size: 0.75rem;
+    color: #c6a777;
+    font-weight: bold;
+    background: rgba(198, 167, 119, 0.1);
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
 .wine-info .award {
     background: linear-gradient(135deg, #c6a777, #d4b88a);
     color: white;

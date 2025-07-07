@@ -375,6 +375,9 @@ class DataLoader {
                     <p>${wine.description}</p>
                     ${wine.awards && wine.awards.length > 0 ? `
                         <div class="awards-container">
+                            <div class="awards-header">
+                                <span class="awards-count">🏆 ${wine.awards.length} 個獎項</span>
+                            </div>
                             ${wine.awards.map((award, awardIndex) => `
                                 <div class="award" onclick="showAwardDetails('${wine.name}', '${award}')">
                                     🏆 ${award}
