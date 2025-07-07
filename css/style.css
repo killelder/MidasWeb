@@ -42,14 +42,7 @@ body {
     margin: 0;
 }
 
-.nav-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .logo-link {
     text-decoration: none;
@@ -317,6 +310,13 @@ body {
     line-height: 1.5;
 }
 
+.awards-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .wine-info .award {
     background: linear-gradient(135deg, #c6a777, #d4b88a);
     color: white;
@@ -324,12 +324,12 @@ body {
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
-    margin-top: 10px;
     display: inline-block;
     box-shadow: 0 2px 8px rgba(198, 167, 119, 0.3);
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    width: fit-content;
 }
 
 .wine-info .award:hover {
@@ -644,6 +644,7 @@ body {
 .logo-img {
     height: 3.6em;
     vertical-align: middle;
+    margin-right: 10px;
     display: inline-block;
 }
 
@@ -672,11 +673,7 @@ body {
         display: flex;
     }
 
-    .nav-center {
-        position: static;
-        transform: none;
-        order: 2;
-    }
+
 
     .nav-menu {
         position: fixed;
@@ -755,6 +752,10 @@ body {
 
     .hero-nav {
         padding: 0 10px;
+    }
+    
+    .awards-container {
+        gap: 6px;
     }
     
     .wine-info .award {

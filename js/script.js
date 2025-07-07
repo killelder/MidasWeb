@@ -199,7 +199,7 @@ class DataLoader {
                     console.log('檢測到酒品數據更新，重新加載...');
                     this.lastWinesUpdate = winesHash;
                     this.renderWines(JSON.parse(winesText).wines);
-                    this.showUpdateNotification('酒品資料已更新');
+                    //this.showUpdateNotification('酒品資料已更新');
                 }
             }
         } catch (error) {
@@ -373,7 +373,15 @@ class DataLoader {
                     <h3>${wine.name}</h3>
                     <div class="price">${wine.price}</div>
                     <p>${wine.description}</p>
-                    ${wine.award ? `<div class="award" onclick="showAwardDetails('${wine.name}', '${wine.award}')">🏆 ${wine.award}</div>` : ''}
+                    ${wine.awards && wine.awards.length > 0 ? `
+                        <div class="awards-container">
+                            ${wine.awards.map((award, awardIndex) => `
+                                <div class="award" onclick="showAwardDetails('${wine.name}', '${award}')">
+                                    🏆 ${award}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
                     ${(wine.aroma || wine.flavor) ? `
                         <div class="wine-details-toggle" onclick="toggleWineDetails(${index})">
                             <span class="toggle-text">查看風味詳情</span>
@@ -510,7 +518,7 @@ function showAwardDetails(wineName, award) {
         background: white;
         padding: 30px;
         border-radius: 10px;
-        max-width: 400px;
+        max-width: 450px;
         text-align: center;
         transform: scale(0.8);
         transition: transform 0.3s ease;
@@ -519,8 +527,10 @@ function showAwardDetails(wineName, award) {
     content.innerHTML = `
         <div style="font-size: 3rem; margin-bottom: 20px;">🏆</div>
         <h3 style="color: #070322; margin-bottom: 15px;">${wineName}</h3>
-        <p style="color: #c6a777; font-weight: bold; font-size: 1.1rem; margin-bottom: 20px;">${award}</p>
-        <p style="color: #666; margin-bottom: 25px;">恭喜獲得此殊榮！這代表了我們對品質的堅持與認可。</p>
+        <div style="background: linear-gradient(135deg, #c6a777, #d4b88a); color: white; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="font-weight: bold; font-size: 1.1rem; margin: 0;">${award}</p>
+        </div>
+        <p style="color: #666; margin-bottom: 25px; line-height: 1.6;">恭喜獲得此殊榮！這代表了我們對品質的堅持與認可，每一座獎盃都是對我們專業與熱情的肯定。</p>
         <button onclick="this.closest('.award-modal').remove()" style="
             background: #c6a777;
             color: white;
@@ -529,7 +539,8 @@ function showAwardDetails(wineName, award) {
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-        ">關閉</button>
+            transition: background-color 0.3s ease;
+        " onmouseover="this.style.background='#a8956a'" onmouseout="this.style.background='#c6a777'">關閉</button>
     `;
     
     modal.appendChild(content);
