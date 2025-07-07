@@ -727,6 +727,12 @@ body {
     .hamburger {
         display: flex;
     }
+    
+    /* 手機版 footer 圖片優化 */
+    .footer-img {
+        min-height: 60px; /* 確保手機版有足夠的高度 */
+        object-fit: cover; /* 保持圖片比例 */
+    }
 
 
 
@@ -846,6 +852,12 @@ body {
 @media screen and (max-width: 480px) {
     .container {
         padding: 0 15px;
+    }
+    
+    /* 小螢幕手機版 footer 圖片進一步優化 */
+    .footer-img {
+        min-height: 80px; /* 小螢幕上更大的高度 */
+        object-fit: cover;
     }
 
     .slide-content h1 {
