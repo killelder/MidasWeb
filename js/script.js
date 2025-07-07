@@ -182,7 +182,7 @@ class DataLoader {
                     console.log('檢測到酒莊數據更新，重新加載...');
                     this.lastWineriesUpdate = wineriesHash;
                     this.renderWineries(JSON.parse(wineriesText).wineries);
-                    this.showUpdateNotification('酒莊資料已更新');
+                    //this.showUpdateNotification('酒莊資料已更新');
                 }
             }
             
