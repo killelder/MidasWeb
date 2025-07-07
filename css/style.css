@@ -67,6 +67,22 @@ body {
     margin: 0;
 }
 
+/* 導航欄中的 h1 樣式，跟隨 h2 的樣式 */
+.nav-logo h1.section-title {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 24px;
+    font-weight: bold;
+    color: #c6a777;
+    margin: 0;
+    text-align: left;
+    position: static;
+}
+
+.nav-logo h1.section-title::after {
+    display: none;
+}
+
 
 
 .logo-link {
