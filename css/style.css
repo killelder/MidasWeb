@@ -30,6 +30,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    position: relative;
 }
 
 .nav-logo h2 {
@@ -39,6 +40,15 @@ body {
     font-weight: bold;
     color: #c6a777;
     margin: 0;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo-link {
@@ -519,7 +529,6 @@ body {
 .logo-img {
     height: 3.6em;
     vertical-align: middle;
-    margin-right: 10px;
     display: inline-block;
 }
 
@@ -548,6 +557,12 @@ body {
         display: flex;
     }
 
+    .nav-center {
+        position: static;
+        transform: none;
+        order: 2;
+    }
+
     .nav-menu {
         position: fixed;
         left: -100%;
@@ -563,6 +578,10 @@ body {
 
     .nav-menu.active {
         left: 0;
+    }
+
+    .nav-container {
+        justify-content: space-between;
     }
 
     .nav-item {

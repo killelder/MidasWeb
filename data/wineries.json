@@ -1,15 +1,22 @@
 {
+  "timestamp": "2025-01-07T08:00:00Z",
   "wineries": [    
     {
       "id": 1,
       "name": "Welland 澳洲巴羅薩谷酒莊",
-      "image": "assets/wineries/D-IMG07_1735774028.webp",
+      "image": "assets/wineries/welland2.webp",
       "description": "Welland 是一座充滿靈魂的酒莊，位於南澳巴羅薩谷邊緣，擁有近百年歷史的老藤葡萄園，曾經供應給多家著名酒廠，卻一度面臨被拆除的命運；直到一群熱愛土地與葡萄酒的夥伴挺身而出，才讓這片珍貴的老藤得以重生，他們用心修復藤蔓、重建灌溉，將歷史與風土轉化為風味深邃、富有故事感的酒款，每一口都是對時間與土地的致敬。"
     },
     {
       "id": 2,
+      "name": "Castorani 義大利阿布魯佐酒莊",
+      "image": "assets/wineries/castorani1.jpg",
+      "description": "Castorani 創立於 1793 年，是阿布魯佐地區歷史最悠久的酒莊之一。酒莊位於佩斯卡拉省的阿蘭諾市，坐落在馬耶拉國家公園與亞得里亞海岸之間的獨特地理位置。現由前一級方程式賽車手 Jarno Trulli 共同經營，將創新技術與傳統工藝完美結合。酒莊採用有機種植法，使用水泥槽發酵和 500 升橡木桶陳年，生產包括 Montepulciano、Trebbiano、Pecorino 等多款展現阿布魯佐風土特色的優質酒款。"
+    },
+    {
+      "id": 3,
       "name": "精選合作酒莊",
-      "image": "assets/wineries/2025-01-02_10-03-47_1735774454.webp",
+      "image": "assets/wineries/welland1.webp",
       "description": "我們與多家國際知名酒莊建立了長期合作關係，致力於為客戶提供最優質的葡萄酒選擇。這些酒莊都擁有悠久的釀酒歷史和卓越的品質保證，每一款酒都經過嚴格的品質控制和專業的品酒師評選，確保為您帶來最佳的品酒體驗。"
     }
   ]
