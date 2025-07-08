@@ -1,3 +1,70 @@
+// 網站載入警示視窗
+function showWelcomeAlert() {
+    console.log('showWelcomeAlert 函數被調用');
+    
+    // 檢查是否已經顯示過警示（使用 localStorage 避免重複顯示）
+    const hasShownAlert = localStorage.getItem('midasWelcomeAlert');
+    console.log('hasShownAlert:', hasShownAlert);
+    
+    if (!hasShownAlert) {
+        console.log('準備顯示年齡確認視窗');
+        // 延遲一下讓頁面完全載入
+        setTimeout(() => {
+            console.log('顯示年齡確認視窗');
+            
+            // 顯示年齡確認對話框
+            const isAdult = confirm('未滿18歲請勿飲酒，是否滿18歲？\n\n請注意：\n• 飲酒過量，有害健康\n• 禁止酒駕，安全回家\n• 未成年請勿飲酒');
+            
+            if (isAdult) {
+                console.log('用戶確認已滿18歲');
+                // 顯示歡迎訊息
+                const welcomeMessage = `
+歡迎來到米達斯酒品！
+
+🍷 精選全球頂級酒品
+🏢 專業企業訂製服務
+📧 聯絡我們：midastasty@gmail.com
+
+請注意：飲酒過量，有害健康
+禁止酒駕，安全回家
+                `;
+                alert(welcomeMessage);
+                
+                // 記錄已顯示過警示
+                localStorage.setItem('midasWelcomeAlert', 'true');
+                console.log('年齡確認完成，警示視窗已顯示並記錄');
+            } else {
+                console.log('用戶未滿18歲，返回上一頁');
+                // 返回上一頁
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    // 如果沒有上一頁，則關閉視窗或導向其他頁面
+                    window.close();
+                    // 如果無法關閉視窗，則導向 Google
+                    if (!window.closed) {
+                        window.location.href = 'https://www.google.com';
+                    }
+                }
+            }
+        }, 1000);
+    } else {
+        console.log('警示視窗已經顯示過，跳過');
+    }
+}
+
+// 頁面載入完成後顯示警示
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded 事件觸發');
+    showWelcomeAlert();
+});
+
+// 也監聽 window load 事件作為備用
+window.addEventListener('load', () => {
+    console.log('window load 事件觸發');
+    showWelcomeAlert();
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
