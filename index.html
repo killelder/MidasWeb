@@ -219,7 +219,30 @@
     <script>
         // 簡單的調試測試
         console.log('HTML加載完成');
-        // 使用智能緩存控制，自動檢測文件變化
+        
+        // 測試 hero.json 加載
+        fetch('data/hero.json', {
+            cache: 'no-cache',
+            headers: {
+                'Cache-Control': 'no-cache'
+            }
+        })
+            .then(response => {
+                console.log('hero.json 響應狀態:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('hero.json 數據:', data);
+                console.log('幻燈片數量:', data.slides ? data.slides.length : 'undefined');
+            })
+            .catch(error => {
+                console.error('讀取 hero.json 失敗:', error);
+            });
+        
+        // 測試 wineries.json 加載
         fetch('data/wineries.json', {
             cache: 'no-cache',
             headers: {

@@ -33,6 +33,8 @@ class HeroSlideshow {
         this.slides = [];
         this.currentSlide = 0;
         this.slideInterval = null;
+        this.lastHeroUpdate = null;
+        this.updateInterval = 30000; // 每30秒檢查一次更新
         this.init();
     }
 
@@ -42,13 +44,67 @@ class HeroSlideshow {
         this.setupNavigation();
         this.setupDots();
         this.startAutoSlide();
+        
+        // 啟動自動更新檢查
+        this.startAutoUpdate();
+    }
+
+    startAutoUpdate() {
+        setInterval(() => {
+            this.checkForUpdates();
+        }, this.updateInterval);
+    }
+    
+    async checkForUpdates() {
+        try {
+            // 檢查hero數據更新 - 使用內容比較
+            const heroResponse = await fetch('data/hero.json', {
+                cache: 'no-cache'
+            });
+            
+            if (heroResponse.ok) {
+                const heroText = await heroResponse.text();
+                const heroHash = this.simpleHash(heroText);
+                
+                if (this.lastHeroUpdate !== heroHash) {
+                    console.log('檢測到hero數據更新，重新加載...');
+                    this.lastHeroUpdate = heroHash;
+                    const data = JSON.parse(heroText);
+                    this.slides = data.slides;
+                    this.renderSlides();
+                    this.setupSlideshow();
+                    this.setupDots();
+                }
+            }
+        } catch (error) {
+            console.error('檢查hero更新時出錯:', error);
+        }
+    }
+    
+    simpleHash(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash.toString();
     }
 
     async loadHeroData() {
         try {
-            const response = await fetch('data/hero.json');
+            const response = await fetch('data/hero.json', {
+                cache: 'no-cache'
+            });
             const data = await response.json();
             this.slides = data.slides;
+            
+            // 設置初始hash值
+            const responseText = await fetch('data/hero.json', {
+                cache: 'no-cache'
+            }).then(r => r.text());
+            this.lastHeroUpdate = this.simpleHash(responseText);
+            
             this.renderSlides();
         } catch (error) {
             console.error('Error loading hero data:', error);
