@@ -17,19 +17,6 @@ function showWelcomeAlert() {
             
             if (isAdult) {
                 console.log('用戶確認已滿18歲');
-                // 顯示歡迎訊息
-                const welcomeMessage = `
-歡迎來到米達斯酒品！
-
-🍷 精選全球頂級酒品
-🏢 專業企業訂製服務
-📧 聯絡我們：midastasty@gmail.com
-
-請注意：飲酒過量，有害健康
-禁止酒駕，安全回家
-                `;
-                alert(welcomeMessage);
-                
                 // 記錄已顯示過警示
                 localStorage.setItem('midasWelcomeAlert', 'true');
                 console.log('年齡確認完成，警示視窗已顯示並記錄');
@@ -54,15 +41,23 @@ function showWelcomeAlert() {
 }
 
 // 頁面載入完成後顯示警示
+let alertShown = false; // 防止重複顯示
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOMContentLoaded 事件觸發');
-    showWelcomeAlert();
+    if (!alertShown) {
+        showWelcomeAlert();
+        alertShown = true;
+    }
 });
 
 // 也監聽 window load 事件作為備用
 window.addEventListener('load', () => {
     console.log('window load 事件觸發');
-    showWelcomeAlert();
+    if (!alertShown) {
+        showWelcomeAlert();
+        alertShown = true;
+    }
 });
 
 // Mobile Navigation Toggle
