@@ -502,8 +502,8 @@ class DataLoader {
                             ${wine.awards.map((award, awardIndex) => {
                                 const hasDetail = award.detail && award.detail.trim() !== '';
                                 return `
-                                    <div class="award ${hasDetail ? 'clickable' : 'no-detail'}" ${hasDetail ? `onclick="showAwardDetails('${wine.name}', '${award.name}', '${award.detail}')"` : ''}>
-                                        🏆 ${award.name}
+                                    <div class="award ${hasDetail ? 'clickable' : 'no-detail'}" ${hasDetail ? `onclick=\"showAwardDetails('${wine.name}', '${award.name}', '${award.detail}')\"` : ''}>
+                                        <span class="award-icon">🏆</span><span class="award-text">${award.name}</span>
                                     </div>
                                 `;
                             }).join('')}

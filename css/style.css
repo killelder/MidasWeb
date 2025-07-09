@@ -329,8 +329,8 @@ body {
 
 .wine-card img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    height: 320px;
+    object-fit: contain;
 }
 
 .wine-info {
@@ -378,18 +378,28 @@ body {
 }
 
 .wine-info .award {
+    display: flex;
+    align-items: center;
+    text-align: left;
     background: linear-gradient(135deg, #c6a777, #d4b88a);
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: bold;
-    display: inline-block;
     box-shadow: 0 2px 8px rgba(198, 167, 119, 0.3);
-    text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
     width: fit-content;
+}
+.award-icon {
+    margin-right: 8px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+}
+.award-text {
+    flex: 1;
+    text-align: left;
 }
 
 .wine-info .award:hover {
