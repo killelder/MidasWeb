@@ -54,8 +54,33 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 100px;
     position: relative;
+}
+
+.nav-menu-right {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.nav-logo-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    margin: 0 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-logo-center .logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-logo h2 {
@@ -712,8 +737,8 @@ body {
 }
 
 .logo-img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     vertical-align: middle;
     margin-right: 10px;
     display: inline-block;
@@ -747,8 +772,8 @@ body {
     
     /* 手機版 logo 調整 */
     .logo-img {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
     }
 
 
@@ -756,7 +781,7 @@ body {
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 70px;
+        top: 100px;
         flex-direction: column;
         background-color: #070322;
         width: 100%;
@@ -768,6 +793,10 @@ body {
 
     .nav-menu.active {
         left: 0;
+    }
+    
+    .nav-logo-center {
+        margin: 0 10px;
     }
 
     .nav-container {
@@ -875,8 +904,8 @@ body {
     
     /* 小螢幕手機版 logo 調整 */
     .logo-img {
-        width: 35px;
-        height: 35px;
+        width: 70px;
+        height: 70px;
     }
 
     .slide-content h1 {
