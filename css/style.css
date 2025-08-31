@@ -141,6 +141,9 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
 .bar {
