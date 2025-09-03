@@ -4,7 +4,7 @@
       "id": 1,
       "name": "WELLAND OLD HANDS 2021 CABERNET SAUVIGNON",
       "image": "assets/wines/id1.webp",
-      "price": "NT$ 2,000",
+      "price": "NT$ 1,980",
       "description": "來自澳洲 Barossa 的經典酒款，OLD HANDS 向經驗老道、代代相傳的葡萄農致敬。這款 Cabernet Sauvignon 延續傳統手法與 Barossa 風格，展現出果香濃郁、口感飽滿且細緻的特性，是一款既有溫度又具質感的佳釀。",
       "awards": [
         {
@@ -27,7 +27,7 @@
       "id": 2,
       "name": "WELLAND VALLEY & VALLEY 2023 CABERNET SAUVIGNON",
       "image": "assets/wines/id2.webp",
-      "price": "NT$ 1,000",
+      "price": "NT$ 1,280",
       "description": "來自澳洲知名產區 Barossa 與 Eden Valley 的優質葡萄園，這款 Cabernet Sauvignon 完美呈現巴羅薩紅酒的典型風格：豐厚果香、細緻橡木與圓潤單寧的絕妙平衡。",
       "awards": [
         {
@@ -46,7 +46,7 @@
       "id": 3,
       "name": "CASTORANI Montepulciano d’Abruzzo DOC 2018",
       "image": "assets/wines/id3.jpg",
-      "price": "NT$ 580",
+      "price": "NT$ 880",
       "description": "來自義大利阿布魯佐地區的經典 Montepulciano d'Abruzzo，由歷史悠久的 Castorani 酒莊精心釀製。採用傳統工藝，在 28°C 溫度下發酵，萃取豐富的風味物質。這款酒展現出中等酒體，單寧圓潤成熟，風味層次豐富，帶有迷人的香料與巧克力香調，完美詮釋了阿布魯佐地區的風土特色。",
       "awards": [
         {
@@ -65,7 +65,7 @@
       "id": 4,
       "name": "CASTORANI Cerasuolo d'Abruzzo DOC 2022",
       "image": "assets/wines/id4.jpg",
-      "price": "NT$ 580",
+      "price": "NT$ 880",
       "description": "Castorani Amorino 2022 是一款代表性的阿布魯佐 Cerasuolo，具備亮眼的粉紅色、果香與中重酒體，兼具刷新口感與餐酒搭配靈活性。若你喜歡結構更豐厚的玫瑰紅酒，它會是個極佳選擇。",
       "awards": [        
       ],
@@ -76,7 +76,7 @@
       "id": 5,
       "name": "CASTORANI Chardonnay Colline Pescaresi IGT 2022",
       "image": "assets/wines/id5.jpg",
-      "price": "NT$ 580",
+      "price": "NT$ 880",
       "description": "Podere Castorani 的 Cadetto Chardonnay 是一款展現南義風格的清新白酒：果香優雅，兼具礦物質感與杏仁尾韻，酸度平衡，結構細緻，無論作為開胃酒或搭餐白酒都十分適合。",
       "awards": [        
       ],
@@ -87,7 +87,7 @@
       "id": 6,
       "name": "CASTORANI Pecorino Colline Pescaresi IGT 2022",
       "image": "assets/wines/id6.jpg",
-      "price": "NT$ 580",
+      "price": "NT$ 880",
       "description": "Cadetto Pecorino Colline Pescaresi IGT 是一款清新而富層次的純釀白酒，展現出義大利中部 Pecorino 品種的典型風格——明亮柑橘香、礦物氣息與雅致良好的結構。適合作為搭餐白酒或日常飲用之選。",
       "awards": [        
       ],
@@ -98,7 +98,7 @@
       "id": 7,
       "name": "CASTORANI Trebbiano d’Abruzzo DOC 2022",
       "image": "assets/wines/id7.jpg",
-      "price": "NT$ 580",
+      "price": "NT$ 880",
       "description": "Podere Castorani 2022 年款的 Trebbiano d’Abruzzo DOC 展現了成熟風格與細緻層次：色澤明亮、香氣多樣，口感既柔滑又具結構感，尤其礦物感與杏仁香尾韻令人印象深刻。這款酒不僅適合搭餐，作為開胃酒亦遊刃有餘，是阿布魯佐白葡萄酒的優選代表。",
       "awards": [        
       ],
