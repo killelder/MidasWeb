@@ -492,7 +492,7 @@ class DataLoader {
                 <img src="${wine.image}" alt="${wine.name}" loading="lazy">
                 <div class="wine-info">
                     <h3>${wine.name}</h3>
-                    <div class="price">${wine.price}</div>
+                    <!-- <div class="price">${wine.price}</div> -->
                     <p>${wine.description}</p>
                     ${wine.awards && wine.awards.length > 0 ? `
                         <div class="awards-container">
