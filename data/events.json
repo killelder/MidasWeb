@@ -1,0 +1,24 @@
+{
+  "intro": "歡迎關注米達斯酒品最新動態，掌握品酒會、企業活動與限時優惠資訊。",
+  "instagram": {
+    "url": "https://www.instagram.com/midas.wine.cellar/",
+    "handle": "@midas.wine.cellar",
+    "description": "追蹤我們的 Instagram，獲取第一手活動消息與酒品資訊"
+  },
+  "line": {
+    "url": "https://lin.ee/vTJ0a6L",
+    "qrImage": "assets/socialmedia/line_qr.png",
+    "description": "掃描 QR Code 或點擊按鈕加入 LINE 好友，掌握最新活動與優惠"
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "台中國際酒展",
+      "date": "2026-07-17",
+      "dateDisplay": "2026年7月17日－7月21日",
+      "location": "臺中國際會展中心",
+      "description": "米達斯酒品將參展台中國際酒展，現場展示 Welland 等精選進口酒品，歡迎蒞臨品酩交流，親身體驗巴羅薩谷等優質產區的經典佳釀。",
+      "status": "upcoming"
+    }
+  ]
+}

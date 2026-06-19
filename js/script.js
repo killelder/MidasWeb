@@ -270,10 +270,12 @@ class DataLoader {
     constructor() {
         this.lastWineriesUpdate = null;
         this.lastWinesUpdate = null;
+        this.lastEventsUpdate = null;
         this.updateInterval = 30000; // 每30秒檢查一次更新
         
         this.loadWineries();
         this.loadWines();
+        this.loadEvents();
         
         // 啟動自動更新檢查
         this.startAutoUpdate();
@@ -318,6 +320,21 @@ class DataLoader {
                     this.lastWinesUpdate = winesHash;
                     this.renderWines(JSON.parse(winesText).wines);
                     //this.showUpdateNotification('酒品資料已更新');
+                }
+            }
+
+            const eventsResponse = await fetch('data/events.json', {
+                cache: 'no-cache'
+            });
+
+            if (eventsResponse.ok) {
+                const eventsText = await eventsResponse.text();
+                const eventsHash = this.simpleHash(eventsText);
+
+                if (this.lastEventsUpdate !== eventsHash) {
+                    console.log('檢測到活動數據更新，重新加載...');
+                    this.lastEventsUpdate = eventsHash;
+                    this.renderEvents(JSON.parse(eventsText));
                 }
             }
         } catch (error) {
@@ -423,6 +440,146 @@ class DataLoader {
             console.error('Error loading wines data:', error);
             this.renderWines([]);
         }
+    }
+
+    async loadEvents() {
+        try {
+            const response = await fetch('data/events.json', {
+                cache: 'no-cache',
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            const data = await response.json();
+            this.renderEvents(data);
+        } catch (error) {
+            console.error('Error loading events data:', error);
+            this.renderEvents({ intro: '', instagram: null, events: [] });
+        }
+    }
+
+    getEventStatusLabel(status) {
+        const labels = {
+            upcoming: '即將舉辦',
+            ongoing: '進行中',
+            past: '已結束'
+        };
+        return labels[status] || '';
+    }
+
+    renderInstagramLink(instagram, className = 'ig-link') {
+        if (!instagram || !instagram.url) return '';
+
+        const handle = instagram.handle || 'Instagram';
+        return `
+            <a href="${instagram.url}" class="${className}" target="_blank" rel="noopener noreferrer" aria-label="前往米達斯酒品 Instagram ${handle}">
+                <span class="ig-icon" aria-hidden="true">📷</span>
+                <span>${handle}</span>
+            </a>
+        `;
+    }
+
+    renderLineLink(line, className = 'line-link') {
+        if (!line || !line.url) return '';
+
+        return `
+            <a href="${line.url}" class="${className}" target="_blank" rel="noopener noreferrer" aria-label="加入米達斯酒品 LINE 好友">
+                <span aria-hidden="true">💬</span>
+                <span>加入 LINE 好友</span>
+            </a>
+        `;
+    }
+
+    renderLineQr(line, className = 'line-qr-block') {
+        if (!line || !line.qrImage) return '';
+
+        return `
+            <div class="${className}">
+                <p>${line.description || '掃描 QR Code 加入 LINE 好友'}</p>
+                <img src="${line.qrImage}" alt="米達斯酒品 LINE 好友 QR Code" loading="lazy" width="180" height="180">
+                ${this.renderLineLink(line, 'line-link line-link-large')}
+            </div>
+        `;
+    }
+
+    renderEvents(data) {
+        const container = document.getElementById('events-container');
+        const introElement = document.getElementById('events-intro');
+        const socialElement = document.getElementById('events-social');
+
+        if (!container || !introElement || !socialElement) {
+            console.error('Events container not found!');
+            return;
+        }
+
+        const events = data.events || [];
+        const instagram = data.instagram || null;
+        const line = data.line || null;
+
+        introElement.textContent = data.intro || '';
+
+        if (events.length === 0) {
+            container.innerHTML = `
+                <div class="events-empty">
+                    <p>目前尚無活動公告，歡迎追蹤我們的 Instagram 或加入 LINE 好友獲取最新消息。</p>
+                </div>
+            `;
+        } else {
+            container.innerHTML = events.map(event => {
+                const statusLabel = this.getEventStatusLabel(event.status);
+                const imageHtml = event.image
+                    ? `<img src="${event.image}" alt="${event.title}" loading="lazy">`
+                    : '';
+
+                return `
+                    <article class="event-card${event.status === 'past' ? ' event-past' : ''}" role="listitem">
+                        ${imageHtml}
+                        <div class="event-info">
+                            ${statusLabel ? `<span class="event-status event-status-${event.status || 'upcoming'}">${statusLabel}</span>` : ''}
+                            <h3>${event.title}</h3>
+                            ${event.dateDisplay ? `<p class="event-date">📅 ${event.dateDisplay}</p>` : ''}
+                            ${event.location ? `<p class="event-location">📍 ${event.location}</p>` : ''}
+                            <p class="event-description">${event.description}</p>
+                            ${event.link ? `<a href="${event.link}" class="event-link" target="_blank" rel="noopener noreferrer">了解更多</a>` : ''}
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        const socialCards = [];
+
+        if (instagram) {
+            socialCards.push(`
+                <div class="events-social-card">
+                    <h3>Instagram</h3>
+                    <p>${instagram.description || '追蹤我們的 Instagram，獲取第一手活動消息'}</p>
+                    ${this.renderInstagramLink(instagram, 'ig-link ig-link-large')}
+                </div>
+            `);
+        }
+
+        if (line) {
+            socialCards.push(`
+                <div class="events-social-card events-social-card-line">
+                    <h3>LINE 好友</h3>
+                    ${this.renderLineQr(line, 'line-qr-block line-qr-block-events')}
+                </div>
+            `);
+        }
+
+        socialElement.innerHTML = socialCards.length > 0
+            ? `<div class="events-social-grid">${socialCards.join('')}</div>`
+            : '';
+
+        setTimeout(() => {
+            const cards = container.querySelectorAll('.event-card, .events-empty');
+            cards.forEach(card => {
+                if (window.animationObserver) {
+                    window.animationObserver.observer.observe(card);
+                }
+            });
+        }, 100);
     }
 
     renderWineries(wineries) {
@@ -644,7 +801,7 @@ class AnimationObserver {
     }
 
     observeElements() {
-        const elements = document.querySelectorAll('.winery-card, .wine-card, .custom-content, .contact-content');
+        const elements = document.querySelectorAll('.winery-card, .wine-card, .event-card, .events-empty, .custom-content, .contact-content');
         elements.forEach(el => {
             this.observer.observe(el);
         });
@@ -753,6 +910,8 @@ const style = document.createElement('style');
 style.textContent = `
     .winery-card,
     .wine-card,
+    .event-card,
+    .events-empty,
     .custom-content,
     .contact-content {
         opacity: 0;
@@ -762,6 +921,8 @@ style.textContent = `
 
     .winery-card.animate,
     .wine-card.animate,
+    .event-card.animate,
+    .events-empty.animate,
     .custom-content.animate,
     .contact-content.animate {
         opacity: 1;
