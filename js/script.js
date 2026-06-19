@@ -488,11 +488,14 @@ class DataLoader {
         this.generateWineStructuredData(wines);
 
         const html = wines.map((wine, index) => `
-            <div class="wine-card">
-                <img src="${wine.image}" alt="${wine.name}" loading="lazy">
+            <div class="wine-card${wine.soldOut ? ' sold-out' : ''}">
+                <div class="wine-image-wrapper">
+                    <img src="${wine.image}" alt="${wine.name}" loading="lazy">
+                    ${wine.soldOut ? '<span class="sold-out-badge">售罄</span>' : ''}
+                </div>
                 <div class="wine-info">
                     <h3>${wine.name}</h3>
-                    <!-- <div class="price">${wine.price}</div> -->
+                    <div class="price">${wine.price}</div>
                     <p>${wine.description}</p>
                     ${wine.awards && wine.awards.length > 0 ? `
                         <div class="awards-container">
@@ -565,7 +568,7 @@ class DataLoader {
                 "@type": "Offer",
                 "price": wine.price.replace(/[^\d]/g, ''), // 提取數字
                 "priceCurrency": "TWD",
-                "availability": "https://schema.org/InStock"
+                "availability": wine.soldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
             },
             "brand": {
                 "@type": "Brand",

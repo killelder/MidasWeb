@@ -355,10 +355,33 @@ body {
     transform: translateY(-5px);
 }
 
+.wine-image-wrapper {
+    position: relative;
+}
+
 .wine-card img {
     width: 100%;
     height: 320px;
     object-fit: contain;
+}
+
+.wine-card.sold-out img {
+    opacity: 0.45;
+    filter: grayscale(60%);
+}
+
+.sold-out-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(7, 3, 34, 0.85);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    z-index: 1;
 }
 
 .wine-info {
