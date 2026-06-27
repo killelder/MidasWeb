@@ -2,38 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
 
-        <loc>https://midaswines.com/</loc>
+        <loc>https://midaswinecellar.com/</loc>
         <lastmod>2025-01-07</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://midaswines.com/#wineries</loc>
+        <loc>https://midaswinecellar.com/#wineries</loc>
         <lastmod>2025-01-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
 
-        <loc>https://midaswines.com/#wines</loc>
+        <loc>https://midaswinecellar.com/#wines</loc>
         <lastmod>2025-01-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://midaswines.com/#custom</loc>
+        <loc>https://midaswinecellar.com/#custom</loc>
         <lastmod>2025-01-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://midaswines.com/#events</loc>
+        <loc>https://midaswinecellar.com/#events</loc>
         <lastmod>2026-03-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://midaswines.com/#contact</loc>
+        <loc>https://midaswinecellar.com/#contact</loc>
         <lastmod>2025-01-07</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
