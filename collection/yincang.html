@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<title>銀藏 SILVER COLLECTION | 米達斯酒品</title>
+<link rel="icon" type="image/png" href="../assets/logo/logo.png">
+<style>
+    :root{
+        --bg:#05030f;
+        --bg-alt:#0c0a22;
+        --panel:rgba(255,255,255,0.05);
+        --border:rgba(201,211,220,0.16);
+        --silver:#c9d3dc;
+        --silver-bright:#f2f5f7;
+        --silver-dim:#8892a0;
+        --gold:#c6a777;
+    }
+    *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    html,body{
+        width:100%; height:100%;
+        overflow:hidden;
+        background:var(--bg);
+        color:var(--silver-bright);
+        font-family:'Noto Serif TC','Microsoft JhengHei',serif;
+        touch-action:manipulation;
+        overscroll-behavior:none;
+        user-select:none;
+    }
+    #app-root{ position:fixed; inset:0; }
+
+    /* ---------- Attract screen ---------- */
+    #attract{
+        position:fixed; inset:0; z-index:50;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        text-align:center; gap:28px;
+        background:
+            radial-gradient(circle at 50% 30%, rgba(201,211,220,0.08), transparent 60%),
+            linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
+        cursor:pointer;
+    }
+    #attract img.logo{ width:96px; height:96px; opacity:0.9; filter:grayscale(0.2) drop-shadow(0 0 24px rgba(201,211,220,0.25)); }
+    #attract h1{
+        font-size:clamp(48px,8vw,88px);
+        letter-spacing:0.35em; padding-left:0.35em;
+        background:linear-gradient(120deg,#8892a0,#f2f5f7 45%,#c6a777 55%,#8892a0);
+        -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    #attract .en{ letter-spacing:0.5em; padding-left:0.5em; color:var(--silver-dim); font-size:clamp(14px,2vw,20px); font-family:Georgia,serif; }
+    #attract .sub{ color:var(--silver-dim); font-size:clamp(14px,1.8vw,18px); letter-spacing:0.15em; }
+    #attract .hint{
+        margin-top:40px; padding:16px 40px; border:1px solid var(--border); border-radius:40px;
+        color:var(--silver); font-size:16px; letter-spacing:0.2em;
+        animation:pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse{ 0%,100%{opacity:0.45;} 50%{opacity:1;} }
+
+    /* ---------- Main app ---------- */
+    #app{ position:fixed; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity .5s ease; }
+    #app.visible{ opacity:1; pointer-events:auto; }
+
+    header.bar{
+        display:flex; align-items:center; justify-content:space-between;
+        padding:22px 36px; border-bottom:1px solid var(--border);
+        background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+        flex-shrink:0;
+    }
+    header.bar .brand{ display:flex; align-items:center; gap:16px; }
+    header.bar .brand img{ width:44px; height:44px; }
+    header.bar .brand .titles h2{ font-size:22px; letter-spacing:0.3em; padding-left:0.1em; color:var(--silver-bright); }
+    header.bar .brand .titles span{ font-size:11px; letter-spacing:0.3em; color:var(--silver-dim); font-family:Georgia,serif; }
+    #home-btn{
+        border:1px solid var(--border); background:transparent; color:var(--silver-dim);
+        padding:12px 22px; border-radius:30px; font-size:14px; letter-spacing:0.15em;
+        font-family:inherit; cursor:pointer;
+    }
+    #home-btn:active{ background:rgba(255,255,255,0.06); }
+
+    .filter-bar{
+        display:flex; gap:14px; padding:18px 36px; overflow-x:auto; flex-shrink:0;
+        border-bottom:1px solid var(--border);
+    }
+    .filter-bar::-webkit-scrollbar{ display:none; }
+    .filter-pill{
+        flex-shrink:0; padding:14px 30px; border-radius:30px; border:1px solid var(--border);
+        background:var(--panel); color:var(--silver-dim); font-size:15px; letter-spacing:0.15em;
+        font-family:inherit; cursor:pointer; transition:all .25s ease;
+    }
+    .filter-pill.active{ background:var(--silver-bright); color:#05030f; border-color:var(--silver-bright); font-weight:bold; }
+
+    .winery-banner{
+        padding:16px 36px; color:var(--silver-dim); font-size:14px; line-height:1.8;
+        border-bottom:1px solid var(--border); flex-shrink:0; display:none;
+    }
+    .winery-banner.visible{ display:block; }
+
+    .grid-scroll{ flex:1; overflow-y:auto; padding:28px 36px 60px; }
+    .wine-grid{
+        display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:26px;
+    }
+    .wine-card{
+        background:var(--panel); border:1px solid var(--border); border-radius:16px; overflow:hidden;
+        cursor:pointer; transition:transform .2s ease, border-color .2s ease; position:relative;
+    }
+    .wine-card:active{ transform:scale(0.97); border-color:var(--silver-dim); }
+    .wine-card .img-wrap{ aspect-ratio:3/4; background:#0a0820; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .wine-card img{ width:100%; height:100%; object-fit:cover; }
+    .wine-card .name{ padding:16px 16px 20px; font-size:14px; line-height:1.6; letter-spacing:0.03em; color:var(--silver-bright); min-height:78px; }
+
+    /* ---------- Detail overlay ---------- */
+    #detail{
+        position:fixed; inset:0; z-index:60; background:var(--bg);
+        display:flex; opacity:0; pointer-events:none; transition:opacity .35s ease;
+        flex-direction:row;
+    }
+    #detail.visible{ opacity:1; pointer-events:auto; }
+    #detail .pane-img{
+        flex:0 0 42%; background:#0a0820; display:flex; align-items:center; justify-content:center; position:relative;
+    }
+    #detail .pane-img img{ width:100%; height:100%; object-fit:cover; }
+    #detail .pane-info{ flex:1; overflow-y:auto; padding:50px 60px 80px; }
+    #detail .pane-info .price{ color:var(--gold); font-size:20px; letter-spacing:0.1em; margin-bottom:10px; }
+    #detail .pane-info h2{ font-size:clamp(22px,3vw,32px); line-height:1.4; letter-spacing:0.02em; margin-bottom:24px; color:var(--silver-bright); }
+    #detail .block{ margin-bottom:30px; }
+    #detail .block h4{ font-size:13px; letter-spacing:0.3em; color:var(--silver-dim); margin-bottom:10px; font-family:Georgia,serif; }
+    #detail .block p{ font-size:16px; line-height:1.9; color:var(--silver); }
+    #detail .awards{ display:flex; flex-direction:column; gap:16px; }
+    #detail .award{ border-left:2px solid var(--gold); padding-left:16px; }
+    #detail .award .a-name{ color:var(--gold); font-size:15px; margin-bottom:6px; }
+    #detail .award .a-detail{ font-size:14px; line-height:1.8; color:var(--silver-dim); }
+
+    #detail .close-btn{
+        position:absolute; top:24px; right:32px; width:52px; height:52px; border-radius:50%;
+        border:1px solid var(--border); background:rgba(5,3,15,0.6); color:var(--silver-bright);
+        font-size:22px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2;
+    }
+    #detail .nav-btn{
+        position:absolute; top:50%; transform:translateY(-50%); width:60px; height:60px; border-radius:50%;
+        border:1px solid var(--border); background:rgba(5,3,15,0.6); color:var(--silver-bright);
+        font-size:26px; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2;
+    }
+    #detail .nav-prev{ left:20px; }
+    #detail .nav-next{ right:20px; }
+    #detail .nav-btn:active, #detail .close-btn:active{ background:rgba(255,255,255,0.1); }
+
+    @media (max-width:900px){
+        #detail{ flex-direction:column; overflow-y:auto; }
+        #detail .pane-img{ flex:0 0 auto; aspect-ratio:4/3; }
+        #detail .nav-prev{ left:12px; }
+        #detail .nav-next{ right:12px; }
+        header.bar{ padding:16px 20px; }
+        .filter-bar{ padding:14px 20px; }
+        .grid-scroll{ padding:20px 20px 50px; }
+        #detail .pane-info{ padding:30px 24px 60px; }
+    }
+</style>
+</head>
+<body>
+<div id="app-root">
+
+    <div id="attract">
+        <img class="logo" src="../assets/logo/logo.png" alt="米達斯酒品">
+        <div>
+            <h1>銀藏</h1>
+            <div class="en">SILVER&nbsp;COLLECTION</div>
+        </div>
+        <div class="sub">米達斯酒品 · 典藏酒款展示</div>
+        <div class="hint">輕觸畫面開始瀏覽</div>
+    </div>
+
+    <div id="app">
+        <header class="bar">
+            <div class="brand">
+                <img src="../assets/logo/logo.png" alt="米達斯酒品">
+                <div class="titles">
+                    <h2>銀藏 SILVER COLLECTION</h2>
+                    <span>MIDAS WINE CELLAR</span>
+                </div>
+            </div>
+            <button id="home-btn" type="button">返回首頁畫面</button>
+        </header>
+
+        <nav class="filter-bar" id="filter-bar"></nav>
+        <p class="winery-banner" id="winery-banner"></p>
+
+        <div class="grid-scroll">
+            <div class="wine-grid" id="wine-grid"></div>
+        </div>
+    </div>
+
+    <div id="detail">
+        <button class="close-btn" id="detail-close" aria-label="關閉">&times;</button>
+        <button class="nav-btn nav-prev" id="detail-prev" aria-label="上一款">&#10094;</button>
+        <button class="nav-btn nav-next" id="detail-next" aria-label="下一款">&#10095;</button>
+        <div class="pane-img"><img id="detail-img" src="" alt=""></div>
+        <div class="pane-info" id="detail-info"></div>
+    </div>
+
+</div>
+
+<script>
+(function(){
+    "use strict";
+
+    var wines = [];
+    var filtered = [];
+    var currentFilter = 'all';
+    var currentIndex = -1;
+    var idleTimer = null;
+    var IDLE_MS = 120000;
+
+    var CATEGORY_LABELS = { welland:'WELLAND', castorani:'CASTORANI', other:'精選推薦' };
+    var categories = [];
+
+    var wineryDescriptions = {};
+
+    function classify(wine){
+        var n = wine.name.toUpperCase();
+        if (n.indexOf('WELLAND') === 0) return 'welland';
+        if (n.indexOf('CASTORANI') === 0) return 'castorani';
+        return 'other';
+    }
+
+    function el(tag, cls, html){
+        var e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (html !== undefined) e.innerHTML = html;
+        return e;
+    }
+
+    function loadData(){
+        Promise.all([
+            fetch('../data/wines.json', {cache:'no-cache'}).then(function(r){ return r.json(); }),
+            fetch('../data/wineries.json', {cache:'no-cache'}).then(function(r){ return r.json(); }).catch(function(){ return {wineries:[]}; })
+        ]).then(function(results){
+            wines = (results[0].wines || []).filter(function(w){ return !w.soldOut; });
+            var wineries = results[1].wineries || [];
+            wineries.forEach(function(w){
+                if (w.name.indexOf('Welland') !== -1) wineryDescriptions.welland = w.description;
+                else if (w.name.indexOf('Castorani') !== -1) wineryDescriptions.castorani = w.description;
+                else wineryDescriptions.other = w.description;
+            });
+            categories = Object.keys(CATEGORY_LABELS).filter(function(key){
+                return wines.some(function(w){ return classify(w) === key; });
+            });
+            renderFilters();
+            applyFilter(categories.length > 1 ? 'all' : (categories[0] || 'all'));
+        }).catch(function(err){
+            document.getElementById('wine-grid').innerHTML = '<p style="color:#c9d3dc;padding:20px;">酒款資料載入失敗，請確認網路連線後重新整理。</p>';
+            console.error('yincang load error', err);
+        });
+    }
+
+    function renderFilters(){
+        var bar = document.getElementById('filter-bar');
+        bar.innerHTML = '';
+        var tabs = categories.length > 1
+            ? [{ key:'all', label:'全部珍藏' }].concat(categories.map(function(key){ return { key:key, label:CATEGORY_LABELS[key] }; }))
+            : categories.map(function(key){ return { key:key, label:CATEGORY_LABELS[key] }; });
+        tabs.forEach(function(cat){
+            var btn = el('button', 'filter-pill', cat.label);
+            btn.type = 'button';
+            btn.dataset.key = cat.key;
+            if (cat.key === currentFilter) btn.classList.add('active');
+            btn.addEventListener('click', function(){ applyFilter(cat.key); });
+            bar.appendChild(btn);
+        });
+    }
+
+    function applyFilter(key){
+        currentFilter = key;
+        Array.prototype.forEach.call(document.querySelectorAll('.filter-pill'), function(b){
+            b.classList.toggle('active', b.dataset.key === key);
+        });
+
+        filtered = (key === 'all') ? wines.slice() : wines.filter(function(w){ return classify(w) === key; });
+
+        var banner = document.getElementById('winery-banner');
+        if (key !== 'all' && wineryDescriptions[key]) {
+            banner.textContent = wineryDescriptions[key];
+            banner.classList.add('visible');
+        } else {
+            banner.classList.remove('visible');
+        }
+
+        renderGrid();
+    }
+
+    function renderGrid(){
+        var grid = document.getElementById('wine-grid');
+        grid.innerHTML = '';
+        filtered.forEach(function(wine, idx){
+            var card = el('div', 'wine-card');
+            var imgWrap = el('div', 'img-wrap');
+            var img = document.createElement('img');
+            img.src = '../' + wine.image;
+            img.alt = wine.name;
+            img.loading = 'lazy';
+            imgWrap.appendChild(img);
+            card.appendChild(imgWrap);
+            card.appendChild(el('div', 'name', wine.name));
+            card.addEventListener('click', function(){ openDetail(idx); });
+            grid.appendChild(card);
+        });
+    }
+
+    function openDetail(idx){
+        currentIndex = idx;
+        renderDetail();
+        document.getElementById('detail').classList.add('visible');
+    }
+
+    function closeDetail(){
+        document.getElementById('detail').classList.remove('visible');
+    }
+
+    function stepDetail(delta){
+        if (!filtered.length) return;
+        currentIndex = (currentIndex + delta + filtered.length) % filtered.length;
+        renderDetail();
+    }
+
+    function renderDetail(){
+        var wine = filtered[currentIndex];
+        if (!wine) return;
+        document.getElementById('detail-img').src = '../' + wine.image;
+        document.getElementById('detail-img').alt = wine.name;
+
+        var html = '';
+        html += '<div class="price">' + wine.price + '</div>';
+        html += '<h2>' + wine.name + '</h2>';
+        if (wine.description) html += '<div class="block"><h4>酒款介紹</h4><p>' + wine.description + '</p></div>';
+        if (wine.aroma) html += '<div class="block"><h4>香氣</h4><p>' + wine.aroma + '</p></div>';
+        if (wine.flavor) html += '<div class="block"><h4>風味</h4><p>' + wine.flavor + '</p></div>';
+        if (wine.awards && wine.awards.length){
+            html += '<div class="block"><h4>獎項與評鑑</h4><div class="awards">';
+            wine.awards.forEach(function(a){
+                html += '<div class="award"><div class="a-name">' + a.name + '</div><div class="a-detail">' + (a.detail || '') + '</div></div>';
+            });
+            html += '</div></div>';
+        }
+        document.getElementById('detail-info').innerHTML = html;
+        document.getElementById('detail-info').scrollTop = 0;
+    }
+
+    /* ---------- swipe navigation on detail overlay ---------- */
+    var touchStartX = null;
+    var detailEl = document.getElementById('detail');
+    detailEl.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+    detailEl.addEventListener('touchend', function(e){
+        if (touchStartX === null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 60) stepDetail(dx < 0 ? 1 : -1);
+        touchStartX = null;
+    }, {passive:true});
+
+    document.getElementById('detail-close').addEventListener('click', closeDetail);
+    document.getElementById('detail-prev').addEventListener('click', function(){ stepDetail(-1); });
+    document.getElementById('detail-next').addEventListener('click', function(){ stepDetail(1); });
+
+    /* ---------- attract screen / idle handling ---------- */
+    function showApp(){
+        document.getElementById('attract').style.display = 'none';
+        document.getElementById('app').classList.add('visible');
+        resetIdleTimer();
+    }
+
+    function showAttract(){
+        closeDetail();
+        document.getElementById('app').classList.remove('visible');
+        document.getElementById('attract').style.display = 'flex';
+        clearTimeout(idleTimer);
+    }
+
+    function resetIdleTimer(){
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(showAttract, IDLE_MS);
+    }
+
+    document.getElementById('attract').addEventListener('click', showApp);
+    document.getElementById('home-btn').addEventListener('click', showAttract);
+    document.getElementById('app').addEventListener('pointerdown', resetIdleTimer);
+    document.getElementById('detail').addEventListener('pointerdown', resetIdleTimer);
+
+    loadData();
+})();
+</script>
+</body>
+</html>
