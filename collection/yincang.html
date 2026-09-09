@@ -93,11 +93,25 @@
     }
     @keyframes pulse{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
 
+    #attract .line-badge{
+        position:absolute; bottom:28px; right:36px; z-index:2;
+        display:flex; align-items:center; gap:12px;
+        background:rgba(5,3,15,0.55); border:1px solid var(--border); border-radius:16px;
+        padding:10px 16px;
+    }
+    #attract .line-badge img{ width:64px; height:64px; border-radius:8px; background:#fff; padding:4px; flex-shrink:0; }
+    #attract .line-badge .txt{ text-align:left; }
+    #attract .line-badge .t1{ font-size:11px; letter-spacing:0.2em; color:var(--silver-dim); font-family:Georgia,serif; }
+    #attract .line-badge .t2{ font-size:14px; color:var(--silver-bright); letter-spacing:0.05em; margin-top:4px; }
+
     @media (max-width:900px){
         #attract .slide{ flex-direction:column; }
         #attract .slide .shot{ flex:0 0 42%; }
         #attract .slide .info{ padding:24px 32px 40px; gap:14px; }
         #attract .brandmark{ top:20px; left:24px; }
+        #attract .line-badge{ bottom:auto; top:20px; right:20px; padding:8px 12px; gap:8px; }
+        #attract .line-badge img{ width:44px; height:44px; }
+        #attract .line-badge .t2{ font-size:12px; }
     }
 
     /* ---------- Main app ---------- */
@@ -174,6 +188,18 @@
     #detail .award .a-name{ color:var(--gold); font-size:15px; margin-bottom:6px; }
     #detail .award .a-detail{ font-size:14px; line-height:1.8; color:var(--silver-dim); }
 
+    #detail .line-cta{
+        margin-top:10px; padding-top:30px; border-top:1px solid var(--border);
+        display:flex; align-items:center; gap:24px;
+    }
+    #detail .line-cta img{ width:96px; height:96px; border-radius:12px; background:#fff; padding:6px; flex-shrink:0; }
+    #detail .line-cta .text h4{ font-size:13px; letter-spacing:0.3em; color:var(--silver-dim); margin-bottom:8px; font-family:Georgia,serif; }
+    #detail .line-cta .text p{ font-size:15px; line-height:1.7; color:var(--silver); margin-bottom:10px; }
+    #detail .line-cta .text a{
+        display:inline-block; color:var(--gold); border:1px solid var(--gold); border-radius:20px;
+        padding:8px 20px; font-size:13px; letter-spacing:0.1em; text-decoration:none;
+    }
+
     #detail .close-btn{
         position:absolute; top:24px; right:32px; width:52px; height:52px; border-radius:50%;
         border:1px solid var(--border); background:rgba(5,3,15,0.6); color:var(--silver-bright);
@@ -197,6 +223,7 @@
         .filter-bar{ padding:14px 20px; }
         .grid-scroll{ padding:20px 20px 50px; }
         #detail .pane-info{ padding:30px 24px 60px; }
+        #detail .line-cta{ flex-direction:column; align-items:flex-start; }
     }
 </style>
 </head>
@@ -214,6 +241,10 @@
             </div>
         </div>
         <div class="hint">輕觸畫面開始瀏覽</div>
+        <div class="line-badge">
+            <img src="../assets/socialmedia/line_qr.png" alt="米達斯酒品 LINE QR Code">
+            <div class="txt"><div class="t1">SCAN TO CHAT</div><div class="t2">加入 LINE 好友</div></div>
+        </div>
     </div>
 
     <div id="app">
@@ -392,6 +423,10 @@
             });
             html += '</div></div>';
         }
+        html += '<div class="line-cta">';
+        html += '<img src="../assets/socialmedia/line_qr.png" alt="米達斯酒品 LINE QR Code">';
+        html += '<div class="text"><h4>洽詢訂購</h4><p>掃描 QR Code 加入 LINE 好友，直接詢問這款酒的庫存與訂購方式</p><a href="https://lin.ee/vTJ0a6L" target="_blank" rel="noopener noreferrer">加入 LINE 好友</a></div>';
+        html += '</div>';
         document.getElementById('detail-info').innerHTML = html;
         document.getElementById('detail-info').scrollTop = 0;
     }
