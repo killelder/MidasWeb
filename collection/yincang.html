@@ -33,28 +33,72 @@
     /* ---------- Attract screen ---------- */
     #attract{
         position:fixed; inset:0; z-index:50;
-        display:flex; flex-direction:column; align-items:center; justify-content:center;
-        text-align:center; gap:28px;
-        background:
-            radial-gradient(circle at 50% 30%, rgba(201,211,220,0.08), transparent 60%),
-            linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
+        overflow:hidden;
+        background:var(--bg);
         cursor:pointer;
     }
-    #attract img.logo{ width:96px; height:96px; opacity:0.9; filter:grayscale(0.2) drop-shadow(0 0 24px rgba(201,211,220,0.25)); }
-    #attract h1{
-        font-size:clamp(48px,8vw,88px);
-        letter-spacing:0.35em; padding-left:0.35em;
-        background:linear-gradient(120deg,#8892a0,#f2f5f7 45%,#c6a777 55%,#8892a0);
-        -webkit-background-clip:text; background-clip:text; color:transparent;
+    #attract .slide{
+        position:absolute; inset:0; z-index:0;
+        display:flex;
+        opacity:0; transition:opacity 1.1s ease;
     }
-    #attract .en{ letter-spacing:0.5em; padding-left:0.5em; color:var(--silver-dim); font-size:clamp(14px,2vw,20px); font-family:Georgia,serif; }
-    #attract .sub{ color:var(--silver-dim); font-size:clamp(14px,1.8vw,18px); letter-spacing:0.15em; }
+    #attract .slide.active{ opacity:1; }
+    #attract .slide .shot{
+        flex:0 0 46%; position:relative; overflow:hidden;
+        background:radial-gradient(circle at 50% 45%, #14112c 0%, #07051a 75%);
+        display:flex; align-items:center; justify-content:center;
+    }
+    #attract .slide .shot img{
+        max-width:74%; max-height:80%; object-fit:contain;
+        filter:drop-shadow(0 30px 50px rgba(0,0,0,0.55));
+    }
+    #attract .slide .info{
+        flex:1; display:flex; flex-direction:column; justify-content:center;
+        padding:0 6% 6%; gap:20px;
+        background:linear-gradient(160deg, var(--bg-alt) 0%, var(--bg) 100%);
+    }
+    #attract .slide .eyebrow{
+        color:var(--silver-dim); letter-spacing:0.35em; font-size:clamp(11px,1.2vw,14px);
+        font-family:Georgia,serif; text-transform:uppercase;
+    }
+    #attract .slide h2{
+        font-size:clamp(24px,3vw,38px); line-height:1.4; color:var(--silver-bright);
+        text-wrap:balance;
+    }
+    #attract .slide .desc{
+        font-size:clamp(15px,1.7vw,19px); line-height:1.85; color:var(--silver);
+        max-width:46ch;
+    }
+    #attract .slide .price{
+        font-size:clamp(24px,2.8vw,34px); color:var(--gold); letter-spacing:0.06em; font-family:Georgia,serif;
+    }
+    #attract .slide .badge{
+        display:inline-flex; align-items:center; gap:10px; width:fit-content;
+        border:1px solid var(--gold); color:var(--gold); padding:10px 22px;
+        border-radius:30px; font-size:clamp(12px,1.3vw,15px); letter-spacing:0.08em;
+    }
+    #attract .brandmark{
+        position:absolute; top:30px; left:40px; z-index:2;
+        display:flex; align-items:center; gap:14px;
+    }
+    #attract .brandmark img{ width:40px; height:40px; opacity:0.9; }
+    #attract .brandmark .name{ font-size:16px; letter-spacing:0.3em; color:var(--silver-bright); }
+    #attract .brandmark .en{ font-size:10px; letter-spacing:0.3em; color:var(--silver-dim); font-family:Georgia,serif; }
     #attract .hint{
-        margin-top:40px; padding:16px 40px; border:1px solid var(--border); border-radius:40px;
-        color:var(--silver); font-size:16px; letter-spacing:0.2em;
+        position:absolute; bottom:32px; left:50%; transform:translateX(-50%); z-index:2;
+        padding:14px 36px; border:1px solid var(--border); border-radius:40px;
+        background:rgba(5,3,15,0.5);
+        color:var(--silver); font-size:14px; letter-spacing:0.2em;
         animation:pulse 2.2s ease-in-out infinite;
     }
-    @keyframes pulse{ 0%,100%{opacity:0.45;} 50%{opacity:1;} }
+    @keyframes pulse{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+    @media (max-width:900px){
+        #attract .slide{ flex-direction:column; }
+        #attract .slide .shot{ flex:0 0 42%; }
+        #attract .slide .info{ padding:24px 32px 40px; gap:14px; }
+        #attract .brandmark{ top:20px; left:24px; }
+    }
 
     /* ---------- Main app ---------- */
     #app{ position:fixed; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity .5s ease; }
@@ -160,12 +204,15 @@
 <div id="app-root">
 
     <div id="attract">
-        <img class="logo" src="../assets/logo/logo.png" alt="米達斯酒品">
-        <div>
-            <h1>銀藏</h1>
-            <div class="en">SILVER&nbsp;COLLECTION</div>
+        <div class="slide" id="attract-slide-a"></div>
+        <div class="slide" id="attract-slide-b"></div>
+        <div class="brandmark">
+            <img src="../assets/logo/logo.png" alt="米達斯酒品">
+            <div>
+                <div class="name">銀藏</div>
+                <div class="en">SILVER&nbsp;COLLECTION</div>
+            </div>
         </div>
-        <div class="sub">米達斯酒品 · 典藏酒款展示</div>
         <div class="hint">輕觸畫面開始瀏覽</div>
     </div>
 
@@ -214,6 +261,10 @@
     var categories = [];
 
     var wineryDescriptions = {};
+    var slideTimer = null;
+    var slideIndex = 0;
+    var activeSlideLayer = 0;
+    var SLIDE_MS = 7000;
 
     function classify(wine){
         var n = wine.name.toUpperCase();
@@ -246,6 +297,7 @@
             });
             renderFilters();
             applyFilter(categories.length > 1 ? 'all' : (categories[0] || 'all'));
+            startSlideshow();
         }).catch(function(err){
             document.getElementById('wine-grid').innerHTML = '<p style="color:#c9d3dc;padding:20px;">酒款資料載入失敗，請確認網路連線後重新整理。</p>';
             console.error('yincang load error', err);
@@ -359,8 +411,54 @@
     document.getElementById('detail-prev').addEventListener('click', function(){ stepDetail(-1); });
     document.getElementById('detail-next').addEventListener('click', function(){ stepDetail(1); });
 
+    /* ---------- attract screen slideshow ---------- */
+    function slideMarkup(wine){
+        var eyebrow = CATEGORY_LABELS[classify(wine)] || '';
+        var badge = (wine.awards && wine.awards.length) ? wine.awards[0].name : '';
+        var html = '';
+        html += '<div class="shot"><img src="../' + wine.image + '" alt="' + wine.name + '"></div>';
+        html += '<div class="info">';
+        html += '<div class="eyebrow">' + eyebrow + '</div>';
+        html += '<h2>' + wine.name + '</h2>';
+        if (wine.description) html += '<p class="desc">' + wine.description + '</p>';
+        html += '<div class="price">' + wine.price + '</div>';
+        if (badge) html += '<div class="badge">' + badge + '</div>';
+        html += '</div>';
+        return html;
+    }
+
+    function showAttractSlide(i){
+        if (!wines.length) return;
+        var layers = [document.getElementById('attract-slide-a'), document.getElementById('attract-slide-b')];
+        var next = layers[1 - activeSlideLayer];
+        next.innerHTML = slideMarkup(wines[i % wines.length]);
+        requestAnimationFrame(function(){
+            layers[activeSlideLayer].classList.remove('active');
+            next.classList.add('active');
+            activeSlideLayer = 1 - activeSlideLayer;
+        });
+    }
+
+    function startSlideshow(){
+        if (!wines.length || slideTimer) return;
+        if (document.getElementById('app').classList.contains('visible')) return;
+        showAttractSlide(slideIndex);
+        if (wines.length > 1){
+            slideTimer = setInterval(function(){
+                slideIndex = (slideIndex + 1) % wines.length;
+                showAttractSlide(slideIndex);
+            }, SLIDE_MS);
+        }
+    }
+
+    function stopSlideshow(){
+        clearInterval(slideTimer);
+        slideTimer = null;
+    }
+
     /* ---------- attract screen / idle handling ---------- */
     function showApp(){
+        stopSlideshow();
         document.getElementById('attract').style.display = 'none';
         document.getElementById('app').classList.add('visible');
         resetIdleTimer();
@@ -369,8 +467,9 @@
     function showAttract(){
         closeDetail();
         document.getElementById('app').classList.remove('visible');
-        document.getElementById('attract').style.display = 'flex';
+        document.getElementById('attract').style.display = 'block';
         clearTimeout(idleTimer);
+        startSlideshow();
     }
 
     function resetIdleTimer(){
