@@ -194,7 +194,7 @@
     #detail .award .a-detail{ font-size:14px; line-height:1.8; color:var(--silver-dim); }
 
     #detail .line-cta{
-        margin-top:10px; padding-top:30px; border-top:1px solid var(--border);
+        margin:10px 0 30px; padding:24px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
         display:flex; align-items:center; gap:24px;
     }
     #detail .line-cta img{ width:96px; height:96px; border-radius:12px; background:#fff; padding:6px; flex-shrink:0; }
@@ -418,6 +418,10 @@
         var html = '';
         html += '<div class="price">' + wine.price + '</div>';
         html += '<h2>' + wine.name + '</h2>';
+        html += '<div class="line-cta">';
+        html += '<img src="../assets/socialmedia/line_qr.png" alt="米達斯酒品 LINE QR Code">';
+        html += '<div class="text"><h4>洽詢訂購</h4><p>掃描 QR Code 加入 LINE 好友，直接詢問這款酒的庫存與訂購方式</p><a href="https://lin.ee/vTJ0a6L" target="_blank" rel="noopener noreferrer">加入 LINE 好友</a></div>';
+        html += '</div>';
         if (wine.description) html += '<div class="block"><h4>酒款介紹</h4><p>' + wine.description + '</p></div>';
         if (wine.aroma) html += '<div class="block"><h4>香氣</h4><p>' + wine.aroma + '</p></div>';
         if (wine.flavor) html += '<div class="block"><h4>風味</h4><p>' + wine.flavor + '</p></div>';
@@ -428,10 +432,6 @@
             });
             html += '</div></div>';
         }
-        html += '<div class="line-cta">';
-        html += '<img src="../assets/socialmedia/line_qr.png" alt="米達斯酒品 LINE QR Code">';
-        html += '<div class="text"><h4>洽詢訂購</h4><p>掃描 QR Code 加入 LINE 好友，直接詢問這款酒的庫存與訂購方式</p><a href="https://lin.ee/vTJ0a6L" target="_blank" rel="noopener noreferrer">加入 LINE 好友</a></div>';
-        html += '</div>';
         document.getElementById('detail-info').innerHTML = html;
         document.getElementById('detail-info').scrollTop = 0;
     }
