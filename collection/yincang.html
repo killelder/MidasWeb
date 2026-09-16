@@ -46,10 +46,11 @@
     #attract .slide .shot{
         flex:0 0 46%; position:relative; overflow:hidden;
         background:radial-gradient(circle at 50% 45%, #14112c 0%, #07051a 75%);
-        display:flex; align-items:center; justify-content:center;
+        display:flex; align-items:flex-end; justify-content:center;
+        padding:130px 24px 40px;
     }
     #attract .slide .shot img{
-        max-width:74%; max-height:80%; object-fit:contain;
+        max-width:100%; max-height:100%; object-fit:contain;
         filter:drop-shadow(0 30px 50px rgba(0,0,0,0.55));
     }
     #attract .slide .info{
@@ -95,23 +96,24 @@
 
     #attract .line-badge{
         position:absolute; bottom:28px; right:36px; z-index:2;
-        display:flex; align-items:center; gap:12px;
-        background:rgba(5,3,15,0.55); border:1px solid var(--border); border-radius:16px;
-        padding:10px 16px;
+        display:flex; align-items:center; gap:18px;
+        background:rgba(5,3,15,0.6); border:1px solid var(--border); border-radius:20px;
+        padding:16px 26px;
     }
-    #attract .line-badge img{ width:64px; height:64px; border-radius:8px; background:#fff; padding:4px; flex-shrink:0; }
+    #attract .line-badge img{ width:96px; height:96px; border-radius:10px; background:#fff; padding:5px; flex-shrink:0; }
     #attract .line-badge .txt{ text-align:left; }
-    #attract .line-badge .t1{ font-size:11px; letter-spacing:0.2em; color:var(--silver-dim); font-family:Georgia,serif; }
-    #attract .line-badge .t2{ font-size:14px; color:var(--silver-bright); letter-spacing:0.05em; margin-top:4px; }
+    #attract .line-badge .t1{ font-size:13px; letter-spacing:0.2em; color:var(--silver-dim); font-family:Georgia,serif; }
+    #attract .line-badge .t2{ font-size:18px; color:var(--silver-bright); letter-spacing:0.05em; margin-top:6px; }
 
     @media (max-width:900px){
         #attract .slide{ flex-direction:column; }
-        #attract .slide .shot{ flex:0 0 42%; }
+        #attract .slide .shot{ flex:0 0 42%; padding:90px 20px 24px; }
         #attract .slide .info{ padding:24px 32px 40px; gap:14px; }
         #attract .brandmark{ top:20px; left:24px; }
-        #attract .line-badge{ bottom:auto; top:20px; right:20px; padding:8px 12px; gap:8px; }
-        #attract .line-badge img{ width:44px; height:44px; }
-        #attract .line-badge .t2{ font-size:12px; }
+        #attract .line-badge{ bottom:16px; right:16px; padding:10px 16px; gap:12px; }
+        #attract .line-badge img{ width:64px; height:64px; }
+        #attract .line-badge .t1{ font-size:11px; }
+        #attract .line-badge .t2{ font-size:14px; }
     }
 
     /* ---------- Main app ---------- */
