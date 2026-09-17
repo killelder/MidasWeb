@@ -292,6 +292,7 @@
     var currentIndex = -1;
     var idleTimer = null;
     var IDLE_MS = 120000;
+    var DETAIL_IDLE_MS = 30000;
 
     var CATEGORY_LABELS = { welland:'WELLAND', castorani:'CASTORANI', other:'精選推薦' };
     var categories = [];
@@ -397,10 +398,12 @@
         currentIndex = idx;
         renderDetail();
         document.getElementById('detail').classList.add('visible');
+        resetIdleTimer();
     }
 
     function closeDetail(){
         document.getElementById('detail').classList.remove('visible');
+        resetIdleTimer();
     }
 
     function stepDetail(delta){
@@ -514,7 +517,8 @@
 
     function resetIdleTimer(){
         clearTimeout(idleTimer);
-        idleTimer = setTimeout(showAttract, IDLE_MS);
+        var isDetailOpen = document.getElementById('detail').classList.contains('visible');
+        idleTimer = setTimeout(showAttract, isDetailOpen ? DETAIL_IDLE_MS : IDLE_MS);
     }
 
     document.getElementById('attract').addEventListener('click', showApp);
