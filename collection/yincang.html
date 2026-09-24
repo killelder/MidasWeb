@@ -294,7 +294,7 @@
     var IDLE_MS = 120000;
     var DETAIL_IDLE_MS = 30000;
 
-    var CATEGORY_LABELS = { welland:'WELLAND', castorani:'CASTORANI', other:'精選推薦' };
+    var CATEGORY_LABELS = { welland:'WELLAND', castorani:'CASTORANI', kesslerzink:'KESSLER-ZINK', other:'精選推薦' };
     var categories = [];
 
     var wineryDescriptions = {};
@@ -307,6 +307,7 @@
         var n = wine.name.toUpperCase();
         if (n.indexOf('WELLAND') === 0) return 'welland';
         if (n.indexOf('CASTORANI') === 0) return 'castorani';
+        if (n.indexOf('KESSLER-ZINK') === 0) return 'kesslerzink';
         return 'other';
     }
 
@@ -327,6 +328,7 @@
             wineries.forEach(function(w){
                 if (w.name.indexOf('Welland') !== -1) wineryDescriptions.welland = w.description;
                 else if (w.name.indexOf('Castorani') !== -1) wineryDescriptions.castorani = w.description;
+                else if (w.name.indexOf('Kessler-Zink') !== -1) wineryDescriptions.kesslerzink = w.description;
                 else wineryDescriptions.other = w.description;
             });
             categories = Object.keys(CATEGORY_LABELS).filter(function(key){
